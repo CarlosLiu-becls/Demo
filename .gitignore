@@ -1,6 +1,5 @@
 *.nupkg
 *.pyc
-*~
 .vs/
 /TestResults/
 /artifacts/
@@ -9,7 +8,6 @@ obj/
 /build-dev.count
 /build-install.count
 BuildTestResults/
-BecLSA.Connect.Sync/src/BecLSA.Connect.Sync.csproj.user
 Thumbs.db
 [._]*.s[a-v][a-z]
 [._]*.sw[a-p]
@@ -20,8 +18,6 @@ debug.log
 ~*.xlsx
 *.csproj.user
 UpgradeLog.htm
-BecLSA.Connect.avenger-install/Components.wxs
-BecLSA.Connect.aquios-install/Components.wxs
 *.db3-shm
 *.db3-wal
 *.wixproj.user
