@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetTwinsFile", "GetTwinsFile\GetTwinsFile.csproj", "{C7E95810-913A-4B04-9ACA-0161FA02BC24}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C7E95810-913A-4B04-9ACA-0161FA02BC24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7E95810-913A-4B04-9ACA-0161FA02BC24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7E95810-913A-4B04-9ACA-0161FA02BC24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7E95810-913A-4B04-9ACA-0161FA02BC24}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5D49C58A-4A20-44F0-9E6C-825E93F44171}
+	EndGlobalSection
+EndGlobal
