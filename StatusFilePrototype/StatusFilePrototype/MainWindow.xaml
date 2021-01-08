@@ -1,0 +1,17 @@
+﻿<Window x:Class="StatusFilePrototype.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StatusFilePrototype"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+  <Grid>
+    <Button x:Name="SameCodeButton" Content="Run in Parallel (write the same error code)" HorizontalAlignment="Left" Margin="237,26,0,0" VerticalAlignment="Top" Width="293" Click="SameCodeButton_Click"/>
+    <TextBox x:Name="ThreadsCountTextBox" HorizontalAlignment="Left" Height="23" Margin="104,26,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="75"/>
+    <Label Content="Threads Count:" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top"/>
+    <ListBox x:Name="LogListBox" HorizontalAlignment="Left" Height="330" Margin="10,80,0,0" VerticalAlignment="Top" Width="774"/>
+    <Button x:Name="DiffCodeButton" Content="Run in Parallel (write different error codes)" HorizontalAlignment="Left" Margin="237,56,0,0" VerticalAlignment="Top" Width="293" Click="DiffCodeButton_Click"/>
+
+  </Grid>
+</Window>
