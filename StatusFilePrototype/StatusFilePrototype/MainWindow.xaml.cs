@@ -17,7 +17,7 @@ namespace StatusFilePrototype
 
     private void DoWorkForSameCode()
     {
-      StatusFileUtil.AddEvent("Thread", 1001, "Dummy error.", DateTime.Now);
+      StatusFileUtil.AddError(1001, "Dummy error.", DateTime.Now);
     }
     
     private int GetRandom(int min, int max)
@@ -48,7 +48,7 @@ namespace StatusFilePrototype
     private void DoWorkForDiffCode()
     {
       var randomErrorCode = GetRandom(1001, 1006);
-      StatusFileUtil.AddEvent("Thread", randomErrorCode, "Dummy error.", DateTime.Now);
+      StatusFileUtil.AddError(randomErrorCode, "Dummy error.", DateTime.Now);
     }
 
     private async Task WorkToWriteDiffErrorCodeAsync()

@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 
@@ -13,34 +14,32 @@ namespace StatusFilePrototype
     private static readonly string LogFileFullPath = GetLogFileWithFullPath();
     private static Timer timer;
     private static ILogger appLogger;
-    private static readonly ConcurrentDictionary<int, EventItem> EventList = new ConcurrentDictionary<int, EventItem>();
     private static string LastContent;
+    private static readonly EventItem eventItem = new EventItem();
+
+    static StatusFileUtil()
+    {
+      eventItem.AppStartupTime = DateTime.Now;
+    }
 
     public static void Initialize(ILogger logger)
     {
       appLogger = logger;
     }
 
-    public static void AddEvent(string moduleName, int errorCode, string description, DateTime timestamp)
+    public static void AddError(int errorCode, string description, DateTime timestamp)
     {
-      var eventItem = new EventItem
+      eventItem.LastError = new ErrorItem
       {
-        Module = moduleName,
         ErrorCode = errorCode,
-        Message = description,
+        Description = description,
         LocalTimestamp = timestamp,
+        Details = new List<FileError>
+        {
+          new FileError { File = @"c:\temp\file-1.log", Description = "The process cannot access the file because it is being used by another process even after retry" },
+          new FileError { File = @"c:\temp\file-2.log", Description = "File not found." }
+        }
       };
-
-      EventList.AddOrUpdate(
-        errorCode,
-        eventItem,
-        (code, existingItem) =>
-          {
-            existingItem.LocalTimestamp = eventItem.LocalTimestamp;
-            return existingItem;
-          }
-        );
-
 
       if (appLogger != null)
       {
@@ -55,6 +54,11 @@ namespace StatusFilePrototype
       }
     }
 
+    public static void ClearLastError()
+    {
+      eventItem.LastError = null;
+    }
+
     private static string GetLogFileWithFullPath()
     {
       var logDirectory = @"C:\temp";
@@ -65,7 +69,7 @@ namespace StatusFilePrototype
     {
       try
       {
-        var content = JsonConvert.SerializeObject(EventList);
+        var content = JsonConvert.SerializeObject(eventItem);
         if(content.Equals(LastContent, StringComparison.OrdinalIgnoreCase))
         {
           // file content does not change, so do not need to write
@@ -84,12 +88,27 @@ namespace StatusFilePrototype
       }
     }
 
-    private class EventItem
+    internal class EventItem
     {
-      public string Module { get; set; }
+      public DateTime? AppStartupTime { get; set; }
+      public DateTime? LastUploadTime { get; set; }
+      public ErrorItem LastError { get; set; }
+      
+    }
+
+    internal class ErrorItem
+    {
       public int ErrorCode { get; set; }
-      public string Message { get; set; }
+      public string Description { get; set; }
       public DateTime LocalTimestamp { get; set; }
+
+      public List<FileError> Details { get; set; }
+    }
+
+    internal class FileError
+    {
+      public string File { get; set; }
+      public string Description { get; set; }
     }
   }
 }
