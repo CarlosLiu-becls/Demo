@@ -84,6 +84,9 @@ namespace GetTwinsFile
 
   public class IoTHubService
   {
+    private const string DeviceConnectionString = "HostName=bcls-connect-dev-iothub-westus.azure-devices.net;DeviceId=6411042d-6d4e-48f3-8338-639e50039d4a;SharedAccessKey=EWKfqaUrR2IikAsg72PVrNl/33S6nH6D";
+    private const string BeckmanConnectId = "6411042d-6d4e-48f3-8338-639e50039d4a";
+    private const string ManualPullAppLogsNode = "manualPullAppLogs";
     private const string InstrumentNode = "instrument";
     private const string AvailableDriverSizeThresholdNode = "availableDriverSizeInMbThreshold";
     private const double DefaultAvaialbeDriverSizeThreshold = 500;
@@ -122,6 +125,25 @@ namespace GetTwinsFile
       if (deviceClient != null)
       {
         await deviceClient.SetDesiredPropertyUpdateCallbackAsync(OnDesiredPropertyChangedAsync, null).ConfigureAwait(false);
+      }
+    }
+
+    public async Task UpdateTwinPropertyAsync(string propertyNodeName, object newValue)
+    {
+      try
+      {
+        using (var manager = RegistryManager.CreateFromConnectionString(IotConnectionString))
+        {
+          // var twin = await manager.GetTwinAsync(BeckmanConnectId).ConfigureAwait(false);
+          var twin = await deviceClient.GetTwinAsync().ConfigureAwait(false);
+          twin.Properties.Desired[InstrumentNode][propertyNodeName] = false;
+
+          await manager.UpdateTwinAsync(twin.DeviceId, twin, twin.ETag).ConfigureAwait(false);
+        }
+      }
+      catch (Exception exception)
+      {
+        logger.LogError(exception, $"Failed to update desired property {propertyNodeName} as new value {newValue}.");
       }
     }
 
