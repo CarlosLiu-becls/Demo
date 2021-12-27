@@ -15,6 +15,9 @@ namespace UpdateTwins
     {
       try
       {
+        var networkSetting = "{\"IPv4 Address\":\"10.10.10.10\",\"DHCP Enabled\":\"Yes\",\"Physical Address\":\"00-56-FA-C9-9A-B0\",\"Proxy Settings\":{\"Proxy Server Enabled\":\"Yes\",\"Proxy Type\":\"socks\",\"Proxy IP Address\":\"192.168.23.7\",\"Proxy Port\":\"3344\"},\"Timestamp\":\"" +
+       DateTime.Now.ToString("O") + "\"}";
+
         DoWorkAsync();
       }
       catch (Exception ex)
@@ -67,7 +70,7 @@ namespace UpdateTwins
         TwinCollection reportedProperties, connectivity;
         reportedProperties = new TwinCollection();
         connectivity = new TwinCollection();
-        connectivity["network"] = "{\"IPv4 Address\":\"10.10.10.10\",\"DHCP Enabled\":\"Yes\",\"Physical Address\":\"00 - 56 - FA - C9 - 9A - B0\",\"Proxy Settings\":{\"Proxy Server Enabled\":\"Yes\",\"Proxy Type\":\"socks\",\"Proxy IP Address\":\"192.168.23.7\",\"Proxy Port\":\"3344\"}}";
+        connectivity["network"] = "{\"IPv4 Address\":\"111.222.10.10\",\"DHCP Enabled\":\"Yes\",\"Physical Address\":\"00 - 56 - FA - C9 - 9A - B0\",\"Proxy Settings\":{\"Proxy Server Enabled\":\"Yes\",\"Proxy Type\":\"socks\",\"Proxy IP Address\":\"192.168.23.7\",\"Proxy Port\":\"3344\"}}";
         reportedProperties["connectivity"] = connectivity;
         await Client.UpdateReportedPropertiesAsync(reportedProperties);
 
